@@ -1,5 +1,5 @@
 {
-    "name": "game-work/kiri-amqplib",
+    "name": "game-worker/kiri-amqplib",
     "replace": {
         "videlalvaro/php-amqplib": "self.version"
     },
