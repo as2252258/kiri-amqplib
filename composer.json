@@ -1,5 +1,5 @@
 {
-    "name": "php-amqplib/php-amqplib",
+    "name": "game-work/kiri-amqplib",
     "replace": {
         "videlalvaro/php-amqplib": "self.version"
     },
@@ -45,7 +45,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PhpAmqpLib\\": "PhpAmqpLib/"
+            "Kiri\\AmqpLib\\": "amqp-lib/"
         }
     },
     "autoload-dev": {
