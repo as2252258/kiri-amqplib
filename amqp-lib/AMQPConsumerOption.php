@@ -24,7 +24,7 @@ class AMQPConsumerOption
      * @param mixed|null $ticket
      * @param array $arguments
      */
-    public function __construct(string $consumer_tag, ?array $callback, bool $no_local = false, bool $no_ack = false, bool $exclusive = false, bool $nowait = false, mixed $ticket = null, array $arguments = [])
+    public function __construct(string $consumer_tag, ?array $callback = [], bool $no_local = false, bool $no_ack = false, bool $exclusive = false, bool $nowait = false, mixed $ticket = null, array $arguments = [])
     {
         $this->consumer_tag = $consumer_tag;
         $this->no_local = $no_local;
@@ -34,22 +34,6 @@ class AMQPConsumerOption
         $this->callback = $callback;
         $this->ticket = $ticket;
         $this->arguments = $arguments;
-    }
-
-    /**
-     * @return string
-     */
-    public function getQueue(): string
-    {
-        return $this->queue;
-    }
-
-    /**
-     * @param string $queue
-     */
-    public function setQueue(string $queue): void
-    {
-        $this->queue = $queue;
     }
 
     /**
@@ -62,10 +46,12 @@ class AMQPConsumerOption
 
     /**
      * @param string $consumer_tag
+     * @return AMQPConsumerOption
      */
-    public function setConsumerTag(string $consumer_tag): void
+    public function setConsumerTag(string $consumer_tag): AMQPConsumerOption
     {
         $this->consumer_tag = $consumer_tag;
+        return $this;
     }
 
     /**
@@ -78,10 +64,12 @@ class AMQPConsumerOption
 
     /**
      * @param bool $no_local
+     * @return AMQPConsumerOption
      */
-    public function setNoLocal(bool $no_local): void
+    public function setNoLocal(bool $no_local): AMQPConsumerOption
     {
         $this->no_local = $no_local;
+        return $this;
     }
 
     /**
@@ -94,10 +82,12 @@ class AMQPConsumerOption
 
     /**
      * @param bool $no_ack
+     * @return AMQPConsumerOption
      */
-    public function setNoAck(bool $no_ack): void
+    public function setNoAck(bool $no_ack): AMQPConsumerOption
     {
         $this->no_ack = $no_ack;
+        return $this;
     }
 
     /**
@@ -110,10 +100,12 @@ class AMQPConsumerOption
 
     /**
      * @param bool $exclusive
+     * @return AMQPConsumerOption
      */
-    public function setExclusive(bool $exclusive): void
+    public function setExclusive(bool $exclusive): AMQPConsumerOption
     {
         $this->exclusive = $exclusive;
+        return $this;
     }
 
     /**
@@ -126,10 +118,12 @@ class AMQPConsumerOption
 
     /**
      * @param bool $nowait
+     * @return AMQPConsumerOption
      */
-    public function setNowait(bool $nowait): void
+    public function setNowait(bool $nowait): AMQPConsumerOption
     {
         $this->nowait = $nowait;
+        return $this;
     }
 
     /**
@@ -142,10 +136,12 @@ class AMQPConsumerOption
 
     /**
      * @param array|null $callback
+     * @return AMQPConsumerOption
      */
-    public function setCallback(?array $callback): void
+    public function setCallback(?array $callback): AMQPConsumerOption
     {
         $this->callback = $callback;
+        return $this;
     }
 
     /**
@@ -158,10 +154,12 @@ class AMQPConsumerOption
 
     /**
      * @param mixed $ticket
+     * @return AMQPConsumerOption
      */
-    public function setTicket(mixed $ticket): void
+    public function setTicket(mixed $ticket): AMQPConsumerOption
     {
         $this->ticket = $ticket;
+        return $this;
     }
 
     /**
@@ -174,10 +172,12 @@ class AMQPConsumerOption
 
     /**
      * @param array $arguments
+     * @return AMQPConsumerOption
      */
-    public function setArguments(array $arguments): void
+    public function setArguments(array $arguments): AMQPConsumerOption
     {
         $this->arguments = $arguments;
+        return $this;
     }
 
 }
