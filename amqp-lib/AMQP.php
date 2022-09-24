@@ -119,7 +119,7 @@ class AMQP
      */
     public function connected(): AMQPStreamConnection
     {
-        if ($this->isConnected()) {
+        if (!$this->isConnected()) {
             $this->stream = new AMQPStreamConnection($this->config['host'], $this->config['port'], $this->config['user'],
                 $this->config['password'], $this->config['vhost']);
         }
