@@ -10,7 +10,7 @@ class AMQPConsumerOption
     private bool $no_ack = false;
     private bool $exclusive = false;
     private bool $nowait = false;
-    private array|null $callback = null;
+    private array|\Closure|null $callback = null;
     private mixed $ticket = null;
     private array $arguments = array();
 
@@ -135,10 +135,10 @@ class AMQPConsumerOption
     }
 
     /**
-     * @param array|null $callback
+     * @param \Closure|array $callback
      * @return AMQPConsumerOption
      */
-    public function setCallback(?array $callback): AMQPConsumerOption
+    public function setCallback(\Closure|array $callback): AMQPConsumerOption
     {
         $this->callback = $callback;
         return $this;
