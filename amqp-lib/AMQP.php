@@ -36,7 +36,7 @@ class AMQP
      * @param AMQPExchangeOption $exchangeOption
      * @param AMQPQueueOption $queueOption
      * @param AMQPConsumerOption|null $consumerOption
-     * @throws ConfigException
+     * @throws
      */
     public function __construct(AMQPExchangeOption $exchangeOption, AMQPQueueOption $queueOption, ?AMQPConsumerOption $consumerOption = null)
     {
