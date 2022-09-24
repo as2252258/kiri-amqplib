@@ -10,6 +10,8 @@ use Kiri\AmqpLib\Exception\AMQPNoDataException;
 use Kiri\AmqpLib\Exception\AMQPNotImplementedException;
 use Kiri\AmqpLib\Exception\AMQPOutOfBoundsException;
 use Kiri\AmqpLib\Exception\AMQPOutOfRangeException;
+use Kiri\AmqpLib\Exception\AMQPRuntimeException;
+use Kiri\AmqpLib\Exception\AMQPTimeoutException;
 use Kiri\AmqpLib\Helper\DebugHelper;
 use Kiri\AmqpLib\Helper\Protocol\MethodMap080;
 use Kiri\AmqpLib\Helper\Protocol\MethodMap091;
@@ -326,10 +328,10 @@ abstract class AbstractChannel
      * @param array|null $allowed_methods
      * @param bool $non_blocking
      * @param int|float|null $timeout
-     * @throws \PhpAmqpLib\Exception\AMQPOutOfBoundsException
-     * @throws \PhpAmqpLib\Exception\AMQPRuntimeException
-     * @throws \PhpAmqpLib\Exception\AMQPTimeoutException
-     * @throws \PhpAmqpLib\Exception\AMQPConnectionClosedException
+     * @throws AMQPOutOfBoundsException
+     * @throws AMQPRuntimeException
+     * @throws AMQPTimeoutException
+     * @throws AMQPConnectionClosedException
      * @return mixed
      */
     public function wait($allowed_methods = null, $non_blocking = false, $timeout = 0)
