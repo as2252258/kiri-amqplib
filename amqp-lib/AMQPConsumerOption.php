@@ -2,6 +2,8 @@
 
 namespace Kiri\AmqpLib;
 
+use Closure;
+
 class AMQPConsumerOption
 {
 
@@ -10,13 +12,13 @@ class AMQPConsumerOption
     private bool $no_ack = false;
     private bool $exclusive = false;
     private bool $nowait = false;
-    private array|\Closure|null $callback = null;
+    private array|Closure|null $callback = null;
     private mixed $ticket = null;
     private array $arguments = array();
 
     /**
      * @param string $consumer_tag
-     * @param array|null $callback
+     * @param Closure|array|null $callback
      * @param bool $no_local
      * @param bool $autoAck
      * @param bool $exclusive
@@ -24,7 +26,7 @@ class AMQPConsumerOption
      * @param mixed|null $ticket
      * @param array $arguments
      */
-    public function __construct(string $consumer_tag, ?array $callback = [], bool $no_local = false, bool $autoAck = false, bool $exclusive = false, bool $nowait = false, mixed $ticket = null, array $arguments = [])
+    public function __construct(string $consumer_tag, Closure|array|null $callback = null, bool $no_local = false, bool $autoAck = false, bool $exclusive = false, bool $nowait = false, mixed $ticket = null, array $arguments = [])
     {
         $this->consumer_tag = $consumer_tag;
         $this->no_local = $no_local;
@@ -135,10 +137,10 @@ class AMQPConsumerOption
     }
 
     /**
-     * @param \Closure|array $callback
+     * @param Closure|array $callback
      * @return AMQPConsumerOption
      */
-    public function setCallback(\Closure|array $callback): AMQPConsumerOption
+    public function setCallback(Closure|array $callback): AMQPConsumerOption
     {
         $this->callback = $callback;
         return $this;
