@@ -18,17 +18,17 @@ class AMQPConsumerOption
      * @param string $consumer_tag
      * @param array|null $callback
      * @param bool $no_local
-     * @param bool $no_ack
+     * @param bool $autoAck
      * @param bool $exclusive
      * @param bool $nowait
      * @param mixed|null $ticket
      * @param array $arguments
      */
-    public function __construct(string $consumer_tag, ?array $callback = [], bool $no_local = false, bool $no_ack = false, bool $exclusive = false, bool $nowait = false, mixed $ticket = null, array $arguments = [])
+    public function __construct(string $consumer_tag, ?array $callback = [], bool $no_local = false, bool $autoAck = false, bool $exclusive = false, bool $nowait = false, mixed $ticket = null, array $arguments = [])
     {
         $this->consumer_tag = $consumer_tag;
         $this->no_local = $no_local;
-        $this->no_ack = $no_ack;
+        $this->no_ack = $autoAck;
         $this->exclusive = $exclusive;
         $this->nowait = $nowait;
         $this->callback = $callback;
