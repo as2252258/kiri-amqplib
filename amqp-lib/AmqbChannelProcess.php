@@ -60,8 +60,13 @@ class AmqbChannelProcess extends BaseProcess
     {
         $queue = $this->config->getQueueOption();
         $consumer = $this->config->getConsumerOption();
-        $channel = $this->config->reChannel(Str::rand(32), $queue->getRouteKey());
 
+        $route = $queue->getRouteKey();
+        if ($this->config->getExchangeOption()->getType() == strtolower(\AMQPEnum::FANOUT->name)) {
+            $route = '';
+        }
+
+        $channel = $this->config->reChannel(Str::rand(32), $route);
         $channel->basic_consume($queue->getQueue(), $consumer->getConsumerTag(), $consumer->isNoLocal(), $consumer->isNoAck(),
             $consumer->isExclusive(), $consumer->isNowait(), $consumer->getCallback(), $consumer->getTicket(), $consumer->getArguments());
 

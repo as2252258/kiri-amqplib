@@ -78,9 +78,10 @@ class AMQP
      */
     public function close(): void
     {
-        $this->channel->queue_unbind($this->replyQueue,
-            $this->exchangeOption->getExchange(),
-            $this->queueOption->getRouteKey());
+        $routeKey = $this->queueOption->getRouteKey();
+        if ($routeKey != '') {
+            $this->channel->queue_unbind($this->replyQueue, $this->exchangeOption->getExchange(), $routeKey);
+        }
         $this->channel->close();
         $this->stream->close();
     }
