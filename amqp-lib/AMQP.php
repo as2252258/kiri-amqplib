@@ -4,8 +4,10 @@ namespace Kiri\AmqpLib;
 
 use Exception;
 use JetBrains\PhpStorm\ArrayShape;
+use Kiri\Abstracts\Config;
 use Kiri\AmqpLib\Channel\AMQPChannel;
 use Kiri\AmqpLib\Connection\AMQPStreamConnection;
+use Kiri\Exception\ConfigException;
 
 class AMQP
 {
@@ -33,14 +35,14 @@ class AMQP
     /**
      * @param AMQPExchangeOption $exchangeOption
      * @param AMQPQueueOption $queueOption
-     * @param array $config
      * @param AMQPConsumerOption|null $consumerOption
+     * @throws ConfigException
      */
-    public function __construct(AMQPExchangeOption $exchangeOption, AMQPQueueOption $queueOption, array $config, ?AMQPConsumerOption $consumerOption = null)
+    public function __construct(AMQPExchangeOption $exchangeOption, AMQPQueueOption $queueOption, ?AMQPConsumerOption $consumerOption = null)
     {
         $this->exchangeOption = $exchangeOption;
         $this->queueOption = $queueOption;
-        $this->config = $config;
+        $this->config = Config::get('amqp.config');
         $this->consumerOption = $consumerOption;
     }
 

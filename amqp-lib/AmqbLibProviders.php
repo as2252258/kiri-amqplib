@@ -42,9 +42,10 @@ class AmqbLibProviders extends Providers
     public function onImport(LocalService $application): void
     {
         $consumers = Config::get('amqp');
+        $config = $consumers['config'];
         foreach ($consumers['consumers'] as $consumer) {
-            $class = new AmqbChannelProcess($consumers['host'], $consumers['port'], $consumers['user'],
-                $consumers['password'], $consumers['vhost'] ?? '/', $consumer);
+            $class = new AmqbChannelProcess($config['host'], $config['port'], $config['user'],
+                $config['password'], $config['vhost'] ?? '/', $consumer);
             $this->manager->addProcess($class);
         }
 
