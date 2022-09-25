@@ -43,9 +43,6 @@ class AMQP
         $this->exchangeOption = $exchangeOption;
         $this->queueOption = $queueOption;
 
-        var_dump(Config::get('amqp'));
-
-        $this->config = Config::get('amqp.config', []);
         $this->consumerOption = $consumerOption;
     }
 
@@ -122,9 +119,13 @@ class AMQP
 
     /**
      * @return AMQPStreamConnection
+     * @throws ConfigException
      */
     public function connected(): AMQPStreamConnection
     {
+        if (empty($this->config)) {
+            $this->config = Config::get('amqp.config', []);
+        }
         if (!$this->isConnected()) {
             $this->stream = new AMQPStreamConnection($this->config['host'], $this->config['port'], $this->config['user'],
                 $this->config['password'], $this->config['vhost']);
