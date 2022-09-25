@@ -3,12 +3,7 @@
 namespace Kiri\AmqpLib;
 
 use Exception;
-use Kiri\Abstracts\Config;
-use Kiri\AmqpLib\Channel\AMQPChannel;
-use Kiri\AmqpLib\Connection\AMQPStreamConnection;
 use Kiri\Core\Str;
-use Kiri\Di\LocalService;
-use Kiri\Exception\ConfigException;
 use Kiri\Server\Abstracts\BaseProcess;
 use Swoole\Process;
 
@@ -62,7 +57,7 @@ class AmqbChannelProcess extends BaseProcess
         $consumer = $this->config->getConsumerOption();
 
         $route = $queue->getRouteKey();
-        if ($this->config->getExchangeOption()->getType() == strtolower(\AMQPEnum::FANOUT->name)) {
+        if ($this->config->getExchangeOption()->getType() == strtolower(AMQPEnum::FANOUT->name)) {
             $route = '';
         }
 
