@@ -42,7 +42,10 @@ class AMQP
     {
         $this->exchangeOption = $exchangeOption;
         $this->queueOption = $queueOption;
-        $this->config = Config::get('amqp.config');
+
+        var_dump(Config::get('amqp'));
+
+        $this->config = Config::get('amqp.config', []);
         $this->consumerOption = $consumerOption;
     }
 
