@@ -91,6 +91,7 @@ class AMQP
      * @param string $nodeId
      * @param string $routeKey
      * @return AMQPChannel
+     * @throws ConfigException
      */
     public function reChannel(string $nodeId, string $routeKey): AMQPChannel
     {
