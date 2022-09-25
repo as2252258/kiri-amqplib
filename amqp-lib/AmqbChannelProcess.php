@@ -78,11 +78,6 @@ class AmqbChannelProcess extends BaseProcess
             $this->config->close();
         } catch (\Throwable $exception) {
             \Kiri::getLogger()->error(throwable($exception));
-        } finally {
-            if ($this->isStop()) {
-                return;
-            }
-            $this->process($process);
         }
     }
 
