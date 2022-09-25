@@ -53,28 +53,32 @@ class AmqbChannelProcess extends BaseProcess
      */
     public function process(Process $process): void
     {
-        $queue = $this->config->getQueueOption();
-        $consumer = $this->config->getConsumerOption();
+        try {
+            $queue = $this->config->getQueueOption();
+            $consumer = $this->config->getConsumerOption();
 
-        $route = $queue->getRouteKey();
-        if ($this->config->getExchangeOption()->getType() == strtolower(AMQPEnum::FANOUT->name)) {
-            $route = '';
-        }
-
-        $channel = $this->config->reChannel(Str::rand(32), $route);
-        $channel->basic_consume($queue->getQueue(), $consumer->getConsumerTag(), $consumer->isNoLocal(), $consumer->isNoAck(),
-            $consumer->isExclusive(), $consumer->isNowait(), $consumer->getCallback(), $consumer->getTicket(), $consumer->getArguments());
-
-        while (count($channel->callbacks)) {
-            if ($this->isStop()) {
-                break;
+            $route = $queue->getRouteKey();
+            if ($this->config->getExchangeOption()->getType() == strtolower(AMQPEnum::FANOUT->name)) {
+                $route = '';
             }
-            if (!$this->config->isConnected()) {
-                $this->config->connected();
+
+            $channel = $this->config->reChannel(Str::rand(32), $route);
+            $channel->basic_consume($queue->getQueue(), $consumer->getConsumerTag(), $consumer->isNoLocal(), $consumer->isNoAck(),
+                $consumer->isExclusive(), $consumer->isNowait(), $consumer->getCallback(), $consumer->getTicket(), $consumer->getArguments());
+
+            while (count($channel->callbacks)) {
+                if ($this->isStop()) {
+                    break;
+                }
+                if (!$this->config->isConnected()) {
+                    $this->config->connected();
+                }
+                $channel->wait();
             }
-            $channel->wait();
+            $this->config->close();
+        } catch (\Throwable $exception) {
+            \Kiri::getLogger()->error(throwable($exception));
         }
-        $this->config->close();
     }
 
 }
